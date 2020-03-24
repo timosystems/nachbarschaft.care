@@ -1,0 +1,23 @@
+Time : 21:53:08
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'donnerstag' cannot be null
+Raw SQL : INSERT INTO hilfsangebote (what, plz, ref_account, montag, dienstag, mittwoch, donnerstag, freitag, samstag, sonntag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+Time : 21:51:54
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'dienstag' cannot be null
+Raw SQL : INSERT INTO hilfsangebote (what, plz, ref_account, montag, dienstag, mittwoch, donnerstag, freitag, samstag, sonntag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+Time : 21:51:00
+SQLSTATE[23000]: Integrity constraint violation: 1048 Column 'ref_account' cannot be null
+Raw SQL : INSERT INTO hilfsangebote (what, plz, ref_account, montag, dienstag, mittwoch, donnerstag, freitag, samstag, sonntag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+Time : 19:12:48
+SQLSTATE[21S01]: Insert value list does not match column list: 1136 Column count doesn't match value count at row 1
+Raw SQL : INSERT INTO accounts (email, password, vorname, nachname, plz, optin, token) VALUES(?, ?, ?, ?, ?, ?, ?, ?)
+
+Time : 19:12:23
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : INSERT INTO accounts (email, password, vorname, nachname, plz, optin, token) VALUES(?, ?, ?, ?, ?, ?, ?)
+
+Time : 19:10:54
+SQLSTATE[HY093]: Invalid parameter number
+Raw SQL : INSERT INTO accounts(email, password, vorname, nachname, plz, optin, token) VALUES(?, ?, ?, ?, ?, ?, ?)

@@ -1,0 +1,50 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_takehelp_phone">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Helfer*in kontaktieren</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card text-white bg-primary mb-4">
+                    <div class="card-body p-2">
+                        <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
+                        <div class="corona-icon-header mt-2">
+                            <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
+                            <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
+                        </div>
+                    </div>
+                </div>
+                <input type="hidden" name="help_id" value="<?php echo $_hilfsangebotDaten['id']; ?>" />
+                <h5>Du kontaktierst:</h5>
+                <div class="card mb-2">
+                    <div class="card-body p-1">
+                        <small class="badge badge-success">Vor {{ data.help.timestamp }} hinzugefügt</small>
+                        {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
+                        {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
+                        {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
+                        {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
+                        {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
+                        {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
+                        {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
+                        <br>
+                        <span><b>{{ data.help.what|capitalize }}</b> in {{ data.help.plz }}</span>
+                    </div>
+                </div>
+                <hr>
+                <h5>Kontakt:</h5>
+                <big><a href="tel:{{ data.help.phone }}">{{ data.help.phone }}</a></big>
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% if modal == 'takehelp-phone' %}
+<script type="text/javascript">
+    $('#modal_takehelp_phone').modal();
+</script>
+{% endif %}

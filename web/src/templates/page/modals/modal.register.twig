@@ -1,0 +1,61 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_givehelp">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hilfe anbieten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <button class="btn btn-block btn-secondary" type="button" onClick="diagLogin();"><i class="fas fa-fw fa-sign-in-alt mr-2"></i>Direkt zum Login für bereits Helfende</button>
+                <hr>
+                <h5>Neu Registrieren</h5>
+                <form method="POST" action="/src/register.php">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">E-Mail:</span>
+                        </div>
+                        <input required="required" id="reg_email" name="reg_email" class="form-control" type="email" aria-label="Username">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Telefon:</span>
+                        </div>
+                        <input id="reg_phone" name="reg_phone" class="form-control" type="phone" aria-label="Telefon" placeholder="Optional">
+                    </div>
+                    <p class="mb-2"><small>Wir kooperieren mit der <b>Stabststelle Bürgerengagment</b> der Stadt Reutlingen. Wenn du deine Telefonnummer angibst, wird die Vermittlungsstelle passende telefonische Anfragen an dich weiterleiten.</small></p>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Passwort:</span>
+                        </div>
+                        <input required="required" id="reg_password" name="reg_password" class="form-control" type="password" aria-label="Passwort">
+                    </div>
+                    <p class="mb-2"><small>Mindestens 8 Zeichen mit Buchstaben und Zahlen</small></p>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Vorname:</span>
+                        </div>
+                        <input required="required" id="reg_vorname" name="reg_vorname" class="form-control" type="text" aria-label="Vorname">
+                    </div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Nachname:</span>
+                        </div>
+                        <input required="required" id="reg_nachname" name="reg_nachname" class="form-control" type="text" aria-label="Nachname">
+                    </div>
+
+                    <div class="custom-control custom-checkbox my-2">
+                        <input required="required" type="checkbox" class="custom-control-input" id="ref_dsgvo" name="ref_dsgvo">
+                        <label class="custom-control-label" for="ref_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die Datenschutzerklärung gelesen und akzeptiert.</label>
+                    </div>
+
+                    <button class="btn btn-block btn-success" type="Submit">Registrieren</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>

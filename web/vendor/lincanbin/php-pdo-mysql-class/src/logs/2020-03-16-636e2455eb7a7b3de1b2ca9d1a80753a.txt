@@ -1,0 +1,11 @@
+Time : 11:44:53
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'FROM plz_polygons WHERE plz=?' at line 1
+Raw SQL : SELECT FROM plz_polygons WHERE plz=?
+
+Time : 09:52:46
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hilfsangebote WHERE ref_account=?' at line 1
+Raw SQL : SELECT * hilfsangebote WHERE ref_account=?
+
+Time : 09:52:37
+SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'hilfsangebote WHERE ref_account=?' at line 1
+Raw SQL : SELECT * hilfsangebote WHERE ref_account=?

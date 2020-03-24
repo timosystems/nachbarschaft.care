@@ -1,0 +1,119 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_splash">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Willkommen bei {{ config.title }}</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body pb-0">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="card">
+                                <div class="card-body p-2">
+                                    <div class="badge badge-secondary">EN and FR translaton on bottom</div>
+                                    <br>
+                                    <span>Diese Website sammelt die Hilfsangebote von Menschen und stellt sie öffentlich zur Verfügung. Das soll es erleichtern, Hilfe anzubieten und zu finden sowie ein angemessenes Niveau an Datenschutz gewährleisten.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body pb-0">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12">
+                            <form method="GET" action="/" style="width: 100%;">
+                                <div class="input-group" style="width: 100%;">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Hilfe in</span>
+                                    </div>
+                                    <input required="required" id="plz_splash" name="plz" class="form-control" type="search" placeholder="PLZ" aria-label="Nach Postleitzahl suchen">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="submit">Suchen</button>
+                                    </div>
+                                    <div class="input-group-append">
+                                        {% if user.login == false %}
+                                        <button class="btn btn-success" onclick="diagGiveHelp('splash');" type="button">Bieten</button>
+                                        {% else %}
+                                        <button class="btn btn-success" onclick="diagAddHelp('splash');" type="button">Bieten</button>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body pb-0">
+                <div class="container-fluid p-0">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <div class="card bg-primary text-white mb-3">
+                                <div class="card-header p-2">
+                                    <span><i class="fas fa-fw fa-search mr-1"></i>Hilfe suchen</span>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-item-primary p-2">Gebe die PLZ an, in deren Gebiet du Hilfe suchst und klicke auf Suchen</li>
+                                    <li class="list-group-item list-group-item-primary p-2">Wähle aus der Liste das Hilfsangebot aus, das zu deinen Bedürfnissen passt</li>
+                                    <li class="list-group-item list-group-item-primary p-2">Kontaktiere die helfende Person entweder per E-Mail oder Telefon indem du auf den entsprechenden Button klickst</li>
+                                    <li class="list-group-item list-group-item-primary p-2">Beachte die <a class="text-info" href="https://www.infektionsschutz.de/hygienetipps/" target="_blank"><b>Hygieneempfehlungen der BZgA</b></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card bg-success text-white mb-3">
+                                <div class="card-header p-2">
+                                    <span><i class="fas fa-fw fa-users"></i>&nbsp;Hilfe anbieten</span>
+                                </div>
+                                <ul class="list-group list-group-flush">
+                                    <li class="list-group-item list-group-item-success p-2">Gebe die PLZ an, in deren Gebiet du Hilfe anbieten möchtest. Melde dich hierfür mit deinem Account an oder registriere dich</li>
+                                    <li class="list-group-item list-group-item-success p-2">Gebe an, welche Art von Hilfe du anbietest und an welchen Tagen</li>
+                                    <li class="list-group-item list-group-item-success p-2">Wenn jemand in der von dir angegebenen PLZ nach einer Hilfe sucht, kann er dich nun kontaktieren</li>
+                                    <li class="list-group-item list-group-item-success p-2">Beachte die <a class="text-info" href="https://www.infektionsschutz.de/hygienetipps/" target="_blank"><b>Hygieneempfehlungen der BZgA</b></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body pt-0 pb-3">
+                <div id="accordion">
+                    <div class="card">
+                        <div class="card-header p-2" id="headingFR">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link p-0" data-toggle="collapse" data-target="#collapsFR"><i class="fas fa-fw fa-flag"></i>&nbsp;Français - Explication</button>
+                            </h5>
+                        </div>
+                        <div id="collapsFR" class="collapse"data-parent="#accordion">
+                            <div class="card-body p-2">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                        <div class="card-header p-2" id="headingEN">
+                            <h5 class="mb-0">
+                                <button class="btn btn-link p-0" data-toggle="collapse" data-target="#collapsEN"><i class="fas fa-fw fa-flag"></i>&nbsp;English - Explanation</button>
+                            </h5>
+                        </div>
+                        <div id="collapsEN" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                            <div class="card-body p-2">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>
+{% if modal == 'splash' %}
+<script type="text/javascript">
+    $('#modal_splash').modal();
+</script>
+{% endif %}

@@ -1,0 +1,8 @@
+{
+    "require": {
+        "lincanbin/php-pdo-mysql-class": "^2.0",
+        "phpmailer/phpmailer": "^6.1",
+        "twig/twig": "^3.0",
+        "dapphp/securimage": "^4.0"
+    }
+}

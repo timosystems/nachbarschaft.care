@@ -1,0 +1,128 @@
+<div id="alertarea">
+    {% if success != null %}
+    <div id="alert-success" class="alert alert-success mb-0" role="alert">
+        {% if success == 'register' %}
+        <span><b>Erfolgreich registriert!</b> Bitte bestätige deinen Account, indem du auf den Link in der eben an dich versendeten E-Mail klickst.</span>
+        {% elseif success == 'optin' %}
+        <span><b>Erfolgreich bestätigt!</b> Du kannst dich nun mit deinem Account anmelden.</span>
+        {% elseif success == 'login' %}
+        <span><b>Erfolgreich eingeloggt!</b> Du kannst nun Hilfsangebote eintragen.</span>
+        {% elseif success == 'addhelp' %}
+        <span><b>Hilfsangebot erfolgreich eingetragen!</b> Es wird nun auf der Karte angezeigt und Menschen können Kontakt mit dir aufnehmen.</span>
+        {% elseif success == 'removehelp' %}
+        <span><b>Hilfsangebot erfolgreich gelöscht!</b> Es wird nun nicht mehr auf der Karte angezeigt und Menschen können diesbezüglich keinen Kontakt mehr dir aufnehmen.</span>
+        {% elseif success == 'takehelp' %}
+        <span><b>Erfolgreich nach Hilfe gefragt!</b> Deine Anfrage wurde erfolgreich an den*die Helfer*in gesendet. Eine Kopie wurde an dich gesendet! Der*Die Helfer*in meldet sich per Mail direkt bei dir.</span>
+        {% elseif success == 'pwreset' %}
+        <span><b>Erfolgreich Link gesendet!</b> Klicke auf den Link, den wir dir eben zugesendet haben, um dein Passwort neu zu setzen.</span>
+        {% elseif success == 'dopwreset' %}
+        <span><b>Passwort erfolgreich neu gesetz!</b> Du kannst dich nun mit deinem neuen Passwort anmelden.</span>
+        {% elseif success == 'delaccount' %}
+        <span><b>Account erfolgreich gelöscht!</b> Sämtliche Daten und Hilfsangebote deines Accounts wurden aus der Datenbank entfernt.</span>
+        {% endif %}
+    </div>
+    {% endif %}
+    {% if error.problem != null and error.reason != null %}
+    <div id="alert-error" class="alert alert-danger mb-0" role="alert">
+        {% if error.problem == 'register' %}
+            {% if error.reason == 'missing_input' %}
+            <span><b>Fehler beim Registrieren!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_email' %}
+            <span><b>Fehler beim Registrieren!</b> Die angegebene E-Mail ist nicht korrekt!</span>
+            {% elseif error.reason == 'failed_password' %}
+            <span><b>Fehler beim Registrieren!</b> Das Passwort ist nicht lang oder komplex genug!</span>
+            {% elseif error.reason == 'failed_plz' %}
+            <span><b>Fehler beim Registrieren!</b> Die angegebene PLZ ist nicht korrekt!</span>
+            {% elseif error.reason == 'failed_alreadyadded' %}
+            <span><b>Fehler beim Registrieren!</b> Diese E-Mailadresse ist bereits registriert!</span>
+            {% elseif error.reason == 'failed_db' %}
+            <span><b>Fehler beim Registrieren!</b> Systemfehler - Konnte keinen Eintrag in die Datenbank schreiben!</span>
+            {% elseif error.reason == 'failed_optin' %}
+            <span><b>Fehler beim Registrieren!</b> Systemfehler - Konnte keine E-Mail versenden!</span>
+            {% endif %}
+        {% elseif error.problem == 'optin' %}
+            {% if error.reason == 'missing_input' %}
+            <span><b>Fehler beim Bestätigen!</b> Es wurde kein Token übermittelt!</span>
+            {% elseif error.reason == 'wrong_input' %}
+            <span><b>Fehler beim Bestätigen!</b> Es wurde ein falscher Token übermittelt!</span>
+            {% endif %}
+        {% elseif error.problem == 'login' %}
+            {% if error.reason == 'missing_optin' %}
+            <span><b>Fehler beim Login!</b> Bitte aktiviere zuerst deinen Account (siehe Link in der E-Mail, die wir dir gesendet haben)!</span>
+            {% elseif error.reason == 'missing_input' %}
+            <span><b>Fehler beim Login!</b> Es wurden keine Logindaten übermittelt!</span>
+            {% elseif error.reason == 'wrong_input' %}
+            <span><b>Fehler beim Login!</b> Es wurden falsche Logindaten übermittelt!</span>
+            {% endif %}
+        {% elseif error.problem == 'addhelp' %}
+            {% if error.reason == 'no_session' %}
+            <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Bitte melde dich zuerst an!</span>
+            {% elseif error.reason == 'missing_input' %}
+            <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'missing_days' %}
+            <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Bitte wähle mindestens einen Tag aus!</span>
+            {% elseif error.reason == 'failed_db' %}
+            <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Systemfehler - Konnte keinen Eintrag in die Datenbank schreiben!</span>
+            {% elseif error.reason == 'faile_plz' %}
+            <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Die angegebene PLZ ist nicht korrekt!</span>
+            {% endif %}
+        {% elseif error.problem == 'loadplz' %}
+            {% if error.reason == 'failed_db' %}
+            <span><b>Fehler beim Abruf der Postleitzahlkoordinaten!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% endif %}
+        {% elseif error.problem == 'takehelp' %}
+            {% if error.reason == 'failed_db' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% elseif error.reason == 'wrong_captcha' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Der Inhalt des Kontrollbildes wurde nicht korrekt eingetragen!</span>
+            {% elseif error.reason == 'missing_input' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_email' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Die E-Mailadresse ist nicht korrekt!</span>
+            {% elseif error.reason == 'failed_plz' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Die angegebene PLZ ist nicht korrekt!</span>
+            {% elseif error.reason == 'failed_contact' %}
+            <span><b>Fehler beim Versenden einer Hilfsanfrage!</b> Systemfehler - Die E-Mail konnte nicht versendet werden!</span>
+            {% endif %}
+        {% elseif error.problem == 'pwreset' %}
+            {% if error.reason == 'failed_db' %}
+            <span><b>Fehler beim Senden des Links!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% elseif error.reason == 'missing_input' %}
+            <span><b>Fehler beim Senden des Links!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_email' %}
+            <span><b>Fehler beim Senden des Links!</b> Die E-Mailadresse ist nicht korrekt!</span>
+            {% endif %}
+        {% elseif error.problem == 'dopwreset' %}
+            {% if error.reason == 'missing_input' %}
+            <span><b>Fehler beim neu setzen des Passworts!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_password' %}
+            <span><b>Fehler beim neu setzen des Passworts!</b> Das Passwort ist nicht lang oder komplex genug!</span>
+            {% elseif error.reason == 'wrong_input' %}
+            <span><b>Fehler beim neu setzen des Passworts!</b> Es wurden falsche Daten übermittelt!</span>
+            {% elseif error.reason == 'failed_db' %}
+            <span><b>Fehler beim neu setzen des Passworts!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% endif %}
+        {% elseif error.problem == 'removehelp' %}
+            {% if error.reason == 'missing_input' %}
+            <span><b>Fehler Löschen des Hilfsangebotes!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'missing_input' %}
+                <span><b>Fehler Löschen des Hilfsangebotes!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_db' %}
+                <span><b>Fehler Löschen des Hilfsangebotes!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% endif %}
+        {% elseif error.problem == 'delaccount' %}
+            {% if error.reason == 'missing_input' %}
+            <span><b>Fehler beim Löschen des Accounts!</b> Es wurden nicht alle Felder ausgefüllt!</span>
+            {% elseif error.reason == 'failed_email' %}
+            <span><b>Fehler beim Löschen des Accounts!</b> Die E-Mailadresse ist nicht korrekt!</span>
+            {% elseif error.reason == 'failed_account' %}
+            <span><b>Fehler beim Löschen des Accounts!</b> Die E-Mailadresse passt nicht zum Account!</span>
+            {% elseif error.reason == 'failed_db' %}
+            <span><b>Fehler beim Löschen des Accounts!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>
+            {% elseif error.reason == 'no_session' %}
+            <span><b>Fehler beim Löschen des Accounts!</b> Bitte melde dich zuerst an!</span>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
+</div>

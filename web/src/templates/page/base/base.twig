@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        {{ include('parts/page.head.twig') }}
+    </head>
+    <body>
+        {{ include('parts/page.alerts.twig') }}
+        {{ include('parts/navbar.top.twig') }}
+        {{ include('modals/modal.account.delete.twig') }}
+        {{ include('modals/modal.account.doreset.twig') }}
+        {{ include('modals/modal.account.sendreset.twig') }}
+        {{ include('modals/modal.dataprotection.twig') }}
+        {{ include('modals/modal.description.twig') }}
+        {{ include('modals/modal.help.add.twig') }}
+        {{ include('modals/modal.help.contact.mail.twig') }}
+        {{ include('modals/modal.help.contact.phone.twig') }}
+        {{ include('modals/modal.help.edit.twig') }}
+        {{ include('modals/modal.imprint.twig') }}
+        {{ include('modals/modal.login.twig') }}
+        {{ include('modals/modal.register.twig') }}
+        {{ include('modals/modal.splash.twig') }}
+        {% block app %}
+        <p>If this shows up, something went wrong and I really dont know what!</p>
+        {% endblock %}
+        {{ include('parts/navbar.bottom.twig') }}
+    </body>
+</html>

@@ -1,0 +1,51 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_removehelp">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hilfsangebote löschen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {% for help in data.ownhelp %}
+                <form method="POST" action="/src/removehelp.php">
+                    <div class="card mb-1">
+                        <div class="card-body p-1">
+                            <small class="badge badge-success">Vor {{ help.timestamp }} hinzugefügt</small>
+                            {% if help.montag == true %}
+                            <span class="badge badge-secondary">Mo</span>
+                            {% endif %}
+                            {% if help.dienstag == true %}
+                            <span class="badge badge-secondary">Di</span>
+                            {% endif %}
+                            {% if help.mittwoch == true %}
+                            <span class="badge badge-secondary">Mi</span>
+                            {% endif %}
+                            {% if help.donnerstag == true %}
+                            <span class="badge badge-secondary">Do</span>
+                            {% endif %}
+                            {% if help.freitag == true %}
+                            <span class="badge badge-secondary">Fr</span>
+                            {% endif %}
+                            {% if help.samstag == true %}
+                            <span class="badge badge-secondary">Sa</span>
+                            {% endif %}
+                            {% if help.sonntag == true %}
+                            <span class="badge badge-secondary">So</span>
+                            {% endif %}
+                            <br>
+                            <span><b>{{ help.what|capitalize }}</b> in {{ help.plz }}</span>
+                        </div>
+                        <input type="hidden" name="help_id" value="{{ help.id }}" />
+                        <button class="btn btn-block btn-sm btn-danger" type="Submit">Diese Hilfe entfernen!</button>
+                    </div>
+                </form>
+                {% endfor %}
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>

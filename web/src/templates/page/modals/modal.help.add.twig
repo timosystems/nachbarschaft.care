@@ -1,0 +1,91 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_addhelp">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hilfsangebot hinzufügen</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="card text-white bg-primary mb-4">
+                    <div class="card-body p-2">
+                        <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
+                        <div class="corona-icon-header mt-2">
+                            <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
+                            <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
+                        </div>
+                    </div>
+                </div>
+                <form method="POST" action="/src/addhelp.php">
+
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Hilfsangebot:</span>
+                        </div>
+                        <select id="add_what" name="add_what" class="form-control" aria-label="Hilfsangebot" onChange="toggleSonstige();">
+                            <option value="einkaufen">Einkaufen</option>
+                            <option value="kinderbetreuung">Kinderbetreuung</option>
+                            <option value="gassigehen">Gassigehen</option>
+                            <option value="sonstiges">Sonstiges</option>
+                        </select>
+                    </div>
+
+                    <div style="display:none;" class="input-group mb-2" id="add_sonstiges_bereich">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Sonstiges:</span>
+                        </div>
+                        <input maxlength="128" type="text" id="add_what_sonstiges" name="add_what_sonstiges" class="form-control" aria-label="Sonstiges beschreiben">
+                    </div>
+                    
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Postleitzahl:</span>
+                        </div>
+                        <input required="required" type="text" id="add_plz" name="add_plz" class="form-control" readonly="readonly" aria-label="Postleitzahl">
+                    </div>
+
+                    <p class="mt-3">An welchen Tagen kannst du diese Hilfe anbieten?</p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_montag" name="add_montag">
+                        <label class="custom-control-label" for="add_montag">Montag</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_dienstag" name="add_dienstag">
+                        <label class="custom-control-label" for="add_dienstag">Dienstag</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_mittwoch" name="add_mittwoch">
+                        <label class="custom-control-label" for="add_mittwoch">Mittwoch</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_donnerstag" name="add_donnerstag">
+                        <label class="custom-control-label" for="add_donnerstag">Donnerstag</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_freitag" name="add_freitag">
+                        <label class="custom-control-label" for="add_freitag">Freitag</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_samstag" name="add_samstag">
+                        <label class="custom-control-label" for="add_samstag">Samstag</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="add_sonntag" name="add_sonntag">
+                        <label class="custom-control-label" for="add_sonntag">Sonntag</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox my-2">
+                        <input required="required" type="checkbox" class="custom-control-input" id="add_dsgvo" name="add_dsgvo">
+                        <label class="custom-control-label" for="add_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die Datenschutzerklärung gelesen und akzeptiert.</label>
+                    </div>
+
+                    <button class="btn btn-block btn-success mt-4" type="Submit">Hilfsangebot eintragen</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>

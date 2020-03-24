@@ -1,0 +1,123 @@
+{% extends "/base/base.twig" %}
+{% block app %}
+<!-- Data-Storage for PHP to JS handover -->
+<div id="plz-selected" data-js="{{ data.selection.plz }}"></div>
+<div id="plz-selected-polygon" data-js="{{ data.selection.polygon|json_encode() }}"></div>
+<div id="plz-selected-center" data-js="{{ data.selection.center|json_encode() }}"></div>
+<div id="plz-icons" data-js="{{ data.map.help|json_encode() }}"></div>
+<!-- Page Content -->
+<div id="main-container">
+    {% if data.selection.plz != null %}
+    <div id="map-container-open">
+        <a id="close-selection" href="/?nosplash=true" class="dragger">
+            <i class="fas fa-times"></i>
+        </a>
+    {% else %}
+    <div id="map-container-closed">
+    {% endif %}
+        <div id="map"></div>
+    </div>
+    {% if data.selection.plz != null %}
+    <div id="help-container-open">
+    {% else %}
+    <div id="help-container-closed">
+    {% endif %}
+        <div id="help">
+            <div id="help-container-header">
+                <nav class="navbar navbar-light bg-light p-2">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-search mr-1"></i></span>
+                        </div>
+                        <input type="text" id="get_what" name="get_what" class="form-control" aria-label="Hilfsangebote filtern" onKeyDown="filterResults();" placeholder="Suchen" />
+                        <div class="input-group-append">
+                            <span class="input-group-text">
+                                <div class="custom-control custom-checkbox mr-2">
+                                    <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_phone" name="get_phone">
+                                    <label class="custom-control-label" for="get_phone"><i class="fas fa-phone"></i></label>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="input-group mt-1">
+                        <div class="custom-control custom-checkbox mr-2">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_montag" name="get_montag">
+                            <label class="custom-control-label" for="get_montag">Mo</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-2">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_dienstag" name="get_dienstag">
+                            <label class="custom-control-label" for="get_dienstag">Di</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-2">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_mittwoch" name="get_mittwoch">
+                            <label class="custom-control-label" for="get_mittwoch">Mi</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-2">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_donnerstag" name="get_donnerstag">
+                            <label class="custom-control-label" for="get_donnerstag">Do</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-2 ">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_freitag" name="get_freitag">
+                            <label class="custom-control-label" for="get_freitag">Fr</label>
+                        </div>
+                        <div class="custom-control custom-checkbox mr-2">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_samstag" name="get_samstag">
+                            <label class="custom-control-label" for="get_samstag">Sa</label>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input onChange="filterResults();" type="checkbox" class="custom-control-input" id="get_sonntag" name="get_sonntag">
+                            <label class="custom-control-label" for="get_sonntag">So</label>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            <div id="help-container-content" class="p-2">
+                {% for offer in data.selection.offers %}
+                <form id="form-takehelp-mail-{{ offer.id }}" method="POST" action="" >
+                    <input type="hidden" name="takehelp-mail" value="{{ offer.id }}">
+                </form>
+                <form id="form-takehelp-phone-{{ offer.id }}" method="POST" action="" >
+                    <input type="hidden" name="takehelp-phone" value="{{ offer.id }}">
+                </form>
+                <div class="card mb-1 gethelp-item" data-what="{{ offer.what }}" data-phone="{% if offer.phone == null %}0{% else %}1{% endif %}" data-mo="{{ offer.montag }}" data-di="{{ offer.dienstag }}" data-mi="{{ offer.mittwoch }}" data-do="{{ offer.donnerstag }}" data-fr="{{ offer.freitag }}" data-sa="{{ offer.samstag }}" data-so="{{ offer.sonntag }}">
+                    <div class="card-body p-1">
+                        <small class="badge badge-success">Vor {{ offer.timestamp }} hinzugefügt</small>
+                        {% if offer.montag == true %}
+                        <span class="badge badge-secondary">Mo</span>
+                        {% endif %}
+                        {% if offer.dienstag == true %}
+                        <span class="badge badge-secondary">Di</span>
+                        {% endif %}
+                        {% if offer.mittwoch == true %}
+                        <span class="badge badge-secondary">Mi</span>
+                        {% endif %}
+                        {% if offer.donnerstag == true %}
+                        <span class="badge badge-secondary">Do</span>
+                        {% endif %}
+                        {% if offer.freitag == true %}
+                        <span class="badge badge-secondary">Fr</span>
+                        {% endif %}
+                        {% if offer.samstag == true %}
+                        <span class="badge badge-secondary">Sa</span>
+                        {% endif %}
+                        {% if offer.sonntag == true %}
+                        <span class="badge badge-secondary">So</span>
+                        {% endif %}
+                        <br>
+                        <span><b>{{ offer.what|capitalize }}</b> in {{ offer.plz }}</span>
+                    </div>
+                    <div class="btn-group">
+                        <button class="btn btn-info btn-sm no-top-radius" type="Submit" form="form-takehelp-mail-{{ offer.id }}"><i class="fas fa-envelope"></i></button>
+                        {% if offer.phone == null %}
+                            <button disabled class="btn btn-warning btn-sm no-top-radius" type="Submit" form="form-takehelp-phone-{{ offer.id }}"><i class="fas fa-phone-slash"></i></button>
+                        {% else %}
+                            <button class="btn btn-warning btn-sm no-top-radius" type="Submit" form="form-takehelp-phone-{{ offer.id }}"><i class="fas fa-phone"></i></button>
+                        {% endif %}
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,246 @@
+body {
+    background-attachment: scroll;
+    background-repeat: repeat;
+    background-position-x: 0px;
+    background-position-y: 0px;
+}
+
+small {
+    line-height: 9pt !important;
+}
+
+div#map {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    z-index: 10;
+}
+
+#help {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+.no-top-radius {
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.corona-icon-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+#close-selection {
+    position: absolute;
+    width: 48px;
+    height: 32px;
+    left: 50%;
+    margin-left: -24px;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(236, 240, 241);;
+    color: rgb(33, 37, 41);
+    font-size: 16pt;
+    z-index: 50;
+    border-top-left-radius: 4pt;
+    border-top-right-radius: 4pt;
+    box-shadow: 0 -2px 3px -2px #333;
+    text-decoration: none;
+}
+
+div#map-container-open {
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 30%;
+    position: absolute;
+}
+
+#help-container-open {
+    height: 70%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+div#map-container-closed {
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+}
+
+#help-container-closed {
+    height: 0%;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: none;
+    position: absolute;
+}
+
+#help-container-header {
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 80px;
+    position: absolute;
+    background-color: #fff;
+    z-index: 10;
+}
+
+#help-container-content {
+    top: 80px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    position: absolute;
+    overflow-y: scroll;
+}
+
+#main-container {
+    top: 54px;
+    left: 0;
+    right: 0;
+    bottom: 52px;
+    position: absolute;
+}
+
+nav {
+    z-index: 100 !important;
+}
+
+#alertarea {
+    position: absolute;
+    top: 55px;
+    left: 0;
+    right: 0;
+    padding: 12px;
+    z-index: 80 !important;
+    pointer-events: none;
+}
+
+.alert {
+    z-index: 90 !important;
+}
+
+.leaflet-div-icon {
+    background-color: transparent !important;
+    border: none !important;
+}
+
+a.maplink{
+    text-decoration: none;
+}
+
+.map-icon-header {
+    top: 0;
+    left: 0;
+    width: 54px;
+    height: 20px;
+    padding: 4px;
+    background-color: #11836d;
+    text-align: center;
+    display: block;
+    position: absolute;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+.map-icon-content {
+    bottom: 0;
+    left: 0;
+    width: 54px;
+    height: 22px;
+    padding: 4px;
+    background-color: transparent;
+    text-align: center;
+    display: block;
+    position: absolute;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.map-cluster-group-icon {
+    width: 54px;
+    height: 22px;
+    background-color: #1a252f;
+    border-radius: 4px;
+    font-size: 9pt;
+    display: block;
+    line-height: 9pt;
+    color: #fff;
+    position: relative;
+    margin-left: -29px;
+    margin-top: -24px;
+}
+
+.map-icon{
+    width: 54px;
+    height: 42px;
+    background-color: #18BC9C;
+    border-radius: 4px;
+    font-size: 9pt;
+    line-height: 9pt;
+    color: #fff;
+    display: block; 
+    position: relative;
+}
+
+.map-cluster-group-icon:after, .arrow_box:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.map-cluster-group-icon:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #1a252f;
+	border-width: 12px;
+	margin-left: -12px;
+}
+.map-cluster-group-icon:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #1a252f;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+.map-icon:after, .arrow_box:before {
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	content: " ";
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+}
+
+.map-icon:after {
+	border-color: rgba(136, 183, 213, 0);
+	border-top-color: #18BC9C;;
+	border-width: 12px;
+	margin-left: -12px;
+}
+.map-icon:before {
+	border-color: rgba(194, 225, 245, 0);
+	border-top-color: #18BC9C;
+	border-width: 12px;
+	margin-left: -12px;
+}
