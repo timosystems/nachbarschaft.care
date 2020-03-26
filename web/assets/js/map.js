@@ -1,5 +1,6 @@
 var map = null;
 var plzIcons = null;
+var polygon = null;
 var selectedPlzCenter = null;
 var selectedPlzPolygon = null;
 
@@ -45,7 +46,8 @@ $( document ).ready(function() {
 });
 
 function addPLZInfo(){
-    var polygon = L.polygon(selectedPlzPolygon).addTo(map);
+    polygon = L.polygon(selectedPlzPolygon)
+    polygon.addTo(map);
     zoomPLZInfo();
     diagHelpList();
 }
@@ -53,4 +55,8 @@ function addPLZInfo(){
 function zoomPLZInfo(){
     map.setView(selectedPlzCenter, 12);
     map.invalidateSize();
+}
+
+function removePolygon(){
+    polygon.remove(map);
 }

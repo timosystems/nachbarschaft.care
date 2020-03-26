@@ -10,7 +10,7 @@ if(!isset($_GET['token'])){
 
 }
 
-$_token = $_GET['token'];
+$_token = filter_var($_GET['token'], FILTER_SANITIZE_EMAIL);
 
 try {
 

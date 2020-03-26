@@ -18,8 +18,8 @@ function time_elapsed_string($datetime, $full = false) {
     );
     foreach ($string as $k => &$v) {
         if ($diff->$k) {
-            if($v == 'Tag'){
-                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 'en' : '');
+            if($v != 'Woche' && $v != 'Stunde' && $v != 'Minute' && $v != 'Sekunde'){
+                $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 'e' : '');
             } else {
                 $v = $diff->$k . ' ' . $v . ($diff->$k > 1 ? 'n' : '');
             }

@@ -14,9 +14,14 @@ function diagAddHelp(what) {
     }
     else {
         $('.modal').modal('hide');
-        $('#add_plz').val($('#plz').val());
+        $('#add_plz').val($('#plz_footer').val());
         $('#modal_addhelp').modal();
     }
+}
+
+function diagDatenschutz(){
+    $('.modal').modal('hide');
+    $('#modal_datenschutz').modal();
 }
 
 function diagRemoveHelp() {
@@ -59,6 +64,14 @@ function toggleSonstige(){
     } else {
         $('#add_sonstiges_bereich').hide();
     }
+}
+
+function fullsizeMap(){
+    $('#close-selection').hide();
+    $('#help-container-open').hide();
+    $('#map-container-open').css('height', '100%');
+    removePolygon();
+    zoomPLZInfo();
 }
 
 function filterResults(){

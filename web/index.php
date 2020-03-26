@@ -118,6 +118,17 @@ if(isset($_SESSION['email'])){ ?>
 // prepare the data for contacting a helping person via its help offer
 $_help_offer_data = null;
 $_takehelp_id = null;
+$_captcha = (isset($_POST['captcha_code'])) ? filter_var($_POST['captcha_code'], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+$_show_phone = false;
+
+if($_captcha != null){
+    $_securimage = new Securimage();
+    if ($_securimage->check($_captcha) == false) {
+        header("Location: /?problem=getphone&reason=wrong_captcha");
+        exit;
+    }
+    $_show_phone = true;
+}
 if(isset($_POST['takehelp-mail']) || isset($_POST['takehelp-phone'])){
     if(isset($_POST['takehelp-mail'])){
         $_takehelp_id = filter_var($_POST['takehelp-mail'], FILTER_SANITIZE_NUMBER_INT);
@@ -192,7 +203,6 @@ echo $Twig->render('main.twig', array(
         'login' => $_account_login,
         'email' => $_account_email,
         'id' => $_account_id,
-        'help' => array(),
     ),
     'data' => array(
         'map' => array(
@@ -206,6 +216,7 @@ echo $Twig->render('main.twig', array(
         ),
         'ownhelp' => $_own_help,
         'help' => $_help_offer_data,
+        'show_phone' => $_show_phone,
     )
 ));
 ?>

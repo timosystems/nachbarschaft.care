@@ -9,6 +9,14 @@ small {
     line-height: 9pt !important;
 }
 
+.container-narrow {
+    max-width: 600px !important;
+}
+
+.full-height {
+    height: 100% !important; 
+}
+
 div#map {
     top: 0;
     left: 0;

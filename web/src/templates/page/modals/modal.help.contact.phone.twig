@@ -8,34 +8,52 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card text-white bg-primary mb-4">
-                    <div class="card-body p-2">
-                        <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
-                        <div class="corona-icon-header mt-2">
-                            <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
-                            <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
+                <form action="" method="POST">
+                    <div class="card text-white bg-primary mb-4">
+                        <div class="card-body p-2">
+                            <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
+                            <div class="corona-icon-header mt-2">
+                                <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
+                                <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <input type="hidden" name="help_id" value="<?php echo $_hilfsangebotDaten['id']; ?>" />
-                <h5>Du kontaktierst:</h5>
-                <div class="card mb-2">
-                    <div class="card-body p-1">
-                        <small class="badge badge-success">Vor {{ data.help.timestamp }} hinzugefügt</small>
-                        {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
-                        {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
-                        {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
-                        {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
-                        {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
-                        {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
-                        {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
-                        <br>
-                        <span><b>{{ data.help.what|capitalize }}</b> in {{ data.help.plz }}</span>
+                    <input type="hidden" name="help_id" value="<?php echo $_hilfsangebotDaten['id']; ?>" />
+                    <h5>Du kontaktierst</h5>
+                    <div class="card mb-4">
+                        <div class="card-body p-1">
+                            <small class="badge badge-success">Vor {{ data.help.timestamp }} hinzugefügt</small>
+                            {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
+                            {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
+                            {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
+                            {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
+                            {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
+                            {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
+                            {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
+                            <br>
+                            <span><b>{{ data.help.what|capitalize }}</b> in {{ data.help.plz }}</span>
+                        </div>
                     </div>
-                </div>
-                <hr>
-                <h5>Kontakt:</h5>
-                <big><a href="tel:{{ data.help.phone }}">{{ data.help.phone }}</a></big>
+                    <h5>Telefon</h5>
+                    {% if data.show_phone == false %}
+                    <p class="mb-2"><small>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</small></p>
+                    {% endif %}
+                    <div class="card mb-2">
+                        <div class="card-body text-center p-2">
+                            {% if modal == 'takehelp-phone' %}
+                                {% if data.show_phone == true %}
+                                <big><a href="tel:{{ data.help.phone }}">{{ data.help.phone }}</a></big>
+                                {% else %}
+                                <input type="hidden" name="takehelp-phone" value="{{ data.help.id }}">
+                                {{ captcha|raw }}
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                    {% if data.show_phone == false %}
+                    <button class="btn btn-block btn-success" type="Submit">Telefonnummer anzeigen!</button>
+                    {% endif %}
+                </form>
             </div>
             <div class="modal-footer">
                 {{ include('modals/parts/modal.part.footer.twig') }}

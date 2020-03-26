@@ -50,7 +50,7 @@ if(!filter_var($_email, FILTER_VALIDATE_EMAIL)){
 
 }
 
-if(!preg_match('/[0-9]{5}/', $_plz)){
+if(!preg_match('/^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/', $_plz)){
 
     header("Location: /?problem=takehelp&reason=failed_plz");
     exit;
@@ -84,8 +84,8 @@ try {
     $_mailContent = str_replace('REPLACE_FRAGENDER_MESSAGE', $_message, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_URL', SYS_URL, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_NAME', SYS_NAME, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMINMAIL', SYS_ADMINMAIL, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMIN', SYS_ADMIN, $_mailContent);
+    $_mailContent = str_replace('REPLACE_SYS_ADMINMAIL', SYS_ADMIN_MAIL, $_mailContent);
+    $_mailContent = str_replace('REPLACE_SYS_ADMIN', SYS_ADMIN_NAME, $_mailContent);
     $_mailContent = utf8_decode($_mailContent);
 
     $Mail = new PHPMailer\PHPMailer\PHPMailer(false);
@@ -126,8 +126,8 @@ try {
     $_mailContent = str_replace('REPLACE_FRAGENDER_MESSAGE', $_message, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_URL', SYS_URL, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_NAME', SYS_NAME, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMINMAIL', SYS_ADMINMAIL, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMIN', SYS_ADMIN, $_mailContent);
+    $_mailContent = str_replace('REPLACE_SYS_ADMINMAIL', SYS_ADMIN_MAIL, $_mailContent);
+    $_mailContent = str_replace('REPLACE_SYS_ADMIN', SYS_ADMIN_NAME, $_mailContent);
     $_mailContent = utf8_decode($_mailContent);
 
     $Mail = new PHPMailer\PHPMailer\PHPMailer(false);

@@ -25,9 +25,12 @@
                         </div>
                         <select id="add_what" name="add_what" class="form-control" aria-label="Hilfsangebot" onChange="toggleSonstige();">
                             <option value="einkaufen">Einkaufen</option>
-                            <option value="kinderbetreuung">Kinderbetreuung</option>
-                            <option value="gassigehen">Gassigehen</option>
-                            <option value="sonstiges">Sonstiges</option>
+                            <option value="botengänge"><i class="fas fa-fw fa-briefcase mr-2"></i>Botengänge</option>
+                            <option value="gespräche"><i class="fas fa-fw fa-phone mr-2"></i>Gespräche</option>
+                            <option value="nachhilfe"><i class="fas fa-fw fa-chalkboard-teacher mr-2"></i>Nachhilfe</option>
+                            <option value="kinderbetreuung"><i class="fas fa-fw fa-baby mr-2"></i>Kinderbetreuung</option>
+                            <option value="gassigehen"><i class="fas fa-fw fa-dog mr-2"></i>Gassigehen</option>
+                            <option value="sonstiges"><i class="fas fa-fw fa-asterisk mr-2"></i>Sonstiges</option>
                         </select>
                     </div>
 
@@ -37,13 +40,21 @@
                         </div>
                         <input maxlength="128" type="text" id="add_what_sonstiges" name="add_what_sonstiges" class="form-control" aria-label="Sonstiges beschreiben">
                     </div>
-                    
+
                     <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Beschreibung:</span>
+                        </div>
+                        <textarea rows="5" id="add_description" name="add_description" class="form-control" aria-label="Beschreibung"></textarea>
+                    </div>
+
+                    <div class="input-group mb-2" >
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width: 120px;">Postleitzahl:</span>
                         </div>
-                        <input required="required" type="text" id="add_plz" name="add_plz" class="form-control" readonly="readonly" aria-label="Postleitzahl">
+                        <input type="text" id="add_plz" name="add_plz" class="form-control" aria-label="Postleitzahlen">
                     </div>
+                    <small>Mehrere PLZ durch ein Komma trennen</small>
 
                     <p class="mt-3">An welchen Tagen kannst du diese Hilfe anbieten?</p>
                     <div class="custom-control custom-checkbox">

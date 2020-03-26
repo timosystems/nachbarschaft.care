@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 24. Mrz 2020 um 22:33
+-- Erstellungszeit: 26. Mrz 2020 um 22:34
 -- Server-Version: 10.4.11-MariaDB
 -- PHP-Version: 7.4.1
 
@@ -48,6 +48,7 @@ CREATE TABLE `accounts` (
 CREATE TABLE `hilfsangebote` (
   `id` int(11) NOT NULL,
   `what` varchar(128) NOT NULL,
+  `description` text NOT NULL,
   `timestamp` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `plz` int(11) NOT NULL,
   `ref_account` int(11) NOT NULL,

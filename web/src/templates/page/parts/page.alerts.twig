@@ -63,9 +63,13 @@
             <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Bitte wähle mindestens einen Tag aus!</span>
             {% elseif error.reason == 'failed_db' %}
             <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Systemfehler - Konnte keinen Eintrag in die Datenbank schreiben!</span>
-            {% elseif error.reason == 'faile_plz' %}
+            {% elseif error.reason == 'failed_plz' %}
             <span><b>Fehler beim Anlegen eines Hilfsangebots!</b> Die angegebene PLZ ist nicht korrekt!</span>
             {% endif %}
+        {% elseif error.problem == 'getphone' %}
+            {% if error.reason == 'wrong_captcha' %}
+            <span><b>Fehler beim Abrufen der Telefonnummer!</b> Der Inhalt des Kontrollbildes wurde nicht korrekt eingetragen!</span>
+            {% endif %}            
         {% elseif error.problem == 'loadplz' %}
             {% if error.reason == 'failed_db' %}
             <span><b>Fehler beim Abruf der Postleitzahlkoordinaten!</b> Systemfehler - Konnte keine Abfrage in die Datenbank durchführen!</span>

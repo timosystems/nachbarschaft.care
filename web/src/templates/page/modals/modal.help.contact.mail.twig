@@ -80,30 +80,15 @@
                     
                     <div class="card mb-2">
                         <div class="card-body text-center p-2">
+                        {% if modal == 'takehelp-mail' %}
                         {{ captcha|raw }}
-                            <!--
-                            <img id="take_captcha_img" src="/vendor/dapphp/securimage/securimage_show.php" alt="CAPTCHA Image" />
-                            -->
+                        {% endif %}
                         </div>
                     </div>
-
-                    <!--
-                    <div class="input-group mb-2">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text" style="width: 120px;">Bildinhalt:</span>
-                        </div>
-                        <input required="required" type="text" id="take_captcha" name="take_captcha" class="form-control" aria-label="Captcha">
-                        <div class="input-group-append">
-                            <span class="input-group-text">
-                                <a href="#" onclick="document.getElementById('take_captcha_img').src = '/vendor/dapphp/securimage/securimage_show.php?id=; return false"><i class="fas fa-fw fa-sync"></i></a>
-                            </span>
-                        </div>
-                    </div>
-                    -->
 
                     <div class="custom-control custom-checkbox my-2">
                         <input required="required" type="checkbox" class="custom-control-input" id="take_dsgvo" name="take_dsgvo">
-                        <label class="custom-control-label" for="take_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die Datenschutzerklärung (oberes Menü) zur gelesen und akzeptiert.</label>
+                        <label class="custom-control-label" for="take_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die Datenschutzerklärung gelesen und akzeptiert.</label>
                     </div>
 
                     <button class="btn btn-block btn-success" type="Submit">Anfrage absenden!</button>

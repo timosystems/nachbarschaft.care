@@ -27,13 +27,6 @@ if($_POST['add_what'] == 'sonstiges' &&
 
 }
 
-if(!preg_match('/^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/', $_POST['add_plz'])){
-
-    header("Location: /?problem=addhelp&reason=failed_plz");
-    exit;
-
-}
-
 if(!isset($_POST['add_montag']) &&
    !isset($_POST['add_dienstag']) &&
    !isset($_POST['add_mittwoch']) &&
@@ -47,7 +40,24 @@ if(!isset($_POST['add_montag']) &&
 }
 
 $_what = ($_POST['add_what'] == 'sonstiges')?'Sonstiges - '.filter_var($_POST['add_what_sonstiges'], FILTER_SANITIZE_SPECIAL_CHARS):filter_var($_POST['add_what'], FILTER_SANITIZE_SPECIAL_CHARS);
-$_plz = filter_var($_POST['add_plz'], FILTER_SANITIZE_NUMBER_INT);
+$_description = filter_var($_POST['add_description'], FILTER_SANITIZE_SPECIAL_CHARS);
+$_plz_array = explode(',', str_replace(' ', '', filter_var($_POST['add_plz'], FILTER_SANITIZE_SPECIAL_CHARS)));
+$_plz_array_checked = array();
+
+foreach($_plz_array as $_plz_array_item){
+
+    if(preg_match('/^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/', $_plz_array_item)){
+        array_push($_plz_array_checked, $_plz_array_item);
+    }
+
+}
+
+if(count($_plz_array_checked) == 0){
+    header("Location: /?problem=addhelp&reason=failed_plz");
+    exit;
+}
+
+
 if(isset($_POST['add_montag'])){
     $_montag = true;
 }
@@ -91,18 +101,22 @@ else{
     $_sonntag = false;
 }
 
-try {
+foreach($_plz_array_checked as $_plz_array_checked_item){
 
-    $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
-    $DB->query("INSERT INTO hilfsangebote (what, plz, ref_account, montag, dienstag, mittwoch, donnerstag, freitag, samstag, sonntag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($_what,$_plz,$_SESSION['id'],$_montag,$_dienstag,$_mittwoch,$_donnerstag,$_freitag,$_samstag,$_sonntag));
+    try {
 
-} catch (\Throwable $th) {
+        $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
+        $DB->query("INSERT INTO hilfsangebote (what, description, plz, ref_account, montag, dienstag, mittwoch, donnerstag, freitag, samstag, sonntag) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array($_what,$_description,$_plz_array_checked_item,$_SESSION['id'],$_montag,$_dienstag,$_mittwoch,$_donnerstag,$_freitag,$_samstag,$_sonntag));
+    
+    } catch (\Throwable $th) {
+    
+        error_log('Konnte keinen Datenbankeintrag durchführen! Ursache: ' . $th->getMessage());
+        header("Location: /?problem=addhelp&reason=failed_db");
+        exit;
+    }
 
-    error_log('Konnte keinen Datenbankeintrag durchführen! Ursache: ' . $th->getMessage());
-    header("Location: /?problem=addhelp&reason=failed_db");
-    exit;
 }
 
-header("Location: /?success=addhelp&plz=" . $_plz);
+header("Location: /?success=addhelp&plz=" . $_plz_array_checked[0]);
 
 ?>
