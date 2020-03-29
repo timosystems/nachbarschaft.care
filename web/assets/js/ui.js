@@ -19,42 +19,9 @@ function diagAddHelp(what) {
     }
 }
 
-function diagDatenschutz(){
+function showDiag(id){
     $('.modal').modal('hide');
-    $('#modal_datenschutz').modal();
-}
-
-function diagRemoveHelp() {
-    $('.modal').modal('hide');
-    $('#modal_removehelp').modal();
-}
-
-function diagLogin() {
-    $('.modal').modal('hide');
-    $('#modal_login').modal();
-}
-
-function diagLogin() {
-    $('.modal').modal('hide');
-    $('#modal_login').modal();
-}
-
-function diagLogout() {
-    $('.modal').modal('hide');
-    $(location).attr('href','/src/logout.php');
-}
-
-function diagHelpList() {
-    
-$( document ).ready(function() {
-    zoomPLZInfo();
-});
-
-}
-
-function diagDeleteAccount() {
-    $('.modal').modal('hide');
-    $('#modal_deleteaccount').modal();
+    $('#modal_' + id).modal();
 }
 
 function toggleSonstige(){
@@ -136,3 +103,10 @@ setTimeout(() => {
     $('#alert-success').fadeOut(250); 
     $('#alert-error').fadeOut(250);    
 }, 4000);
+setTimeout(() => {
+    $('#alert-phone').fadeOut(250);   
+}, 10000);
+
+$(document).ready(function(){
+    $('.phone-mask').inputmask("999[9]/999[9][9][9][9][9][9][9]");
+})

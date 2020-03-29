@@ -1,0 +1,59 @@
+<div class="modal" tabindex="-1" role="dialog" id="modal_editaccount">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"><i class="fas fa-user fa-fw mr-1"></i>Account bearbeiten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form method="POST" action="/src/editaccount.php" id="form-editaccount">
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">E-Mail:</span>
+                        </div>
+                        <input readonly="readonly" required="required" id="edit_email" name="edit_email" class="form-control" type="email" aria-label="Username" value="{{ user.email }}">
+                    </div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Telefon:</span>
+                        </div>
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">+49</span>
+                        </div>
+                        <input id="edit_phone" name="edit_phone" class="form-control phone-mask" type="text" aria-label="Telefon" placeholder="Optional" value="{{ user.phone|slice(3,1000) }}">
+                    </div>
+                    <div class="alert alert-secondary my-2 p-2"><span><i class="fas fa-info-circle fa-fw mr-1"></i>Wir kooperieren mit der <b>Stabststelle Bürgerengagement</b> der Stadt Reutlingen. Wenn du deine Telefonnummer angibst, wird die Vermittlungsstelle passende telefonische Anfragen an dich weiterleiten.</span></div>
+                    <div class="input-group mb-1">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Passwort:</span>
+                        </div>
+                        <input id="edit_password" name="edit_password" class="form-control" type="password" aria-label="Passwort" placeholder="Neues Passwort">
+                    </div>
+                    <div class="alert alert-secondary my-2 p-2"><span><i class="fas fa-info-circle fa-fw mr-1"></i>Mindestens 8 Zeichen mit Buchstaben und Zahlen</span></div>
+                    <div class="input-group mb-2">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Vorname:</span>
+                        </div>
+                        <input required="required" id="edit_vorname" name="edit_vorname" class="form-control" type="text" aria-label="Vorname" value="{{ user.vorname }}">
+                    </div>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" style="width: 120px;">Nachname:</span>
+                        </div>
+                        <input required="required" id="edit_nachname" name="edit_nachname" class="form-control" type="text" aria-label="Nachname" value="{{ user.nachname }}">
+                    </div>
+
+                </form>
+            </div>
+            <div class="btn-group">
+                <button form="form-editaccount" class="btn btn-success no-radius" type="Submit"><i class="fas fa-check fa-fw mr-1"></i>Ändern</button>
+                <button class="btn btn-danger no-radius" type="button" onClick="showDiag('deleteaccount');"><i class="fas fa-trash fa-fw mr-1"></i>Löschen</button>
+            </div>
+            <div class="modal-footer">
+                {{ include('modals/parts/modal.part.footer.twig') }}
+            </div>
+        </div>
+    </div>
+</div>

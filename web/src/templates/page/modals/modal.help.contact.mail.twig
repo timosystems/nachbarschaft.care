@@ -2,13 +2,13 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Helfer*in kontaktieren</h5>
+                <h5 class="modal-title"><i class="fas fa-envelope mr-1"></i>Helfende Person kontaktieren</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="card text-white bg-primary mb-4">
+                <div class="card text-white bg-primary mb-2">
                     <div class="card-body p-2">
                         <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
                     </div>
@@ -19,26 +19,31 @@
                         </div>
                     </div>
                 </div>
-                <form method="POST" action="/src/sendhelpmessage.php">
-                    <input type="hidden" name="help_id" value="{{ data.help.id }}" />
-                    <h5>Du kontaktierst:</h5>
-                    <div class="card mb-2">
-                        <div class="card-body p-1">
-                            <small class="badge badge-success">Vor {{ data.help.timestamp }} hinzugefügt</small>
-                            {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
-                            {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
-                            {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
-                            {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
-                            {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
-                            {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
-                            {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
-                            <br>
-                            <span><b>{{ data.help.what|capitalize }}</b> in {{ data.help.plz }}</span>
-                        </div>
+            </div>
+            <div class="modal-body">
+                <h5>Du kontaktierst:</h5>
+                <div class="card mb-2">
+                    <div class="card-body p-1">
+                        <div class="badge badge-primary">{{ data.help.plz }}</div>
+                        <div class="badge badge-success">{{ data.help.timestamp }} alt</div>
+                        {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
+                        {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
+                        {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
+                        {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
+                        {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
+                        {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
+                        {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
+                        <br>
+                        <h5 class="mt-1 mb-0">{{ data.help.what|capitalize }}</h5>
+                        <small>{{ data.help.description }}</small>
                     </div>
-                    <p><small>Es wird eine E-Mail mit den untenstehenden Daten an die*den Helfer*in übermittelt. Du erhältst dieselbe Mail als Bestätigung. Deine Daten werden nicht gespeichert, sondern lediglich per Mail versendet. Der*Die Helfer*in wird dir dann direkt antworten. Schau also in dein E-Mail-Postfach!</small></p>
-                    <hr>
-                    <h5>Infos zu dir:</h5>
+                </div>
+                <div class="alert alert-secondary mb-2 p-2"><span><i class="fas fa-info-circle mr-1"></i>Es wird eine E-Mail mit den von dir eingegebenen Daten an die helfende Person übermittelt. Du erhältst dieselbe Mail als Bestätigung. Deine Daten werden nicht gespeichert, sondern lediglich per Mail versendet. Die helfende Person wird dir dann direkt antworten. Schau also in dein E-Mail-Postfach!</span></div>
+            </div>
+            <div class="modal-body">
+                <form method="POST" id="contact-help-mail" action="/src/sendhelpmessage.php">
+                    <input type="hidden" name="help_id" value="{{ data.help.id }}" />
+                    <h5>Deine E-Mail an die helfende Person:</h5>
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width: 120px;">Name:</span>
@@ -75,8 +80,6 @@
                         </div>
                         <textarea required="required" id="take_message" name="take_message" class="form-control" aria-label="Deine Nachricht" rows="5"></textarea>
                     </div>
-
-                    <p class="mb-2"><small>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</small></p>
                     
                     <div class="card mb-2">
                         <div class="card-body text-center p-2">
@@ -85,14 +88,17 @@
                         {% endif %}
                         </div>
                     </div>
+                    <div class="alert alert-secondary mb-2 p-2"><span><i class="fas fa-info-circle mr-1"></i>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</span></div>
 
                     <div class="custom-control custom-checkbox my-2">
                         <input required="required" type="checkbox" class="custom-control-input" id="take_dsgvo" name="take_dsgvo">
-                        <label class="custom-control-label" for="take_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die Datenschutzerklärung gelesen und akzeptiert.</label>
+                        <label class="custom-control-label" for="take_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die <a href="#" onClick="showDiag('datenschutz');">Datenschutzerklärung</a> gelesen und akzeptiert.</label>
                     </div>
 
-                    <button class="btn btn-block btn-success" type="Submit">Anfrage absenden!</button>
                 </form>
+            </div>
+            <div class="btn-group">
+                <button form="contact-help-mail" class="btn btn-block btn-success no-radius" type="Submit"><i class="fas fa-check mr-1"></i>Anfrage absenden</button>
             </div>
             <div class="modal-footer">
                 {{ include('modals/parts/modal.part.footer.twig') }}

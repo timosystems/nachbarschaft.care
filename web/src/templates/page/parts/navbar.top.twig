@@ -1,11 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light p-2">
-    <a class="navbar-brand" href="/" style="padding: 0; margin: 0; margin-right: 24px;">
+    <a class="navbar-brand" href="/?nosplash=true" style="padding: 0; margin: 0; margin-right: 24px;">
         <img src="/favicon.ico" width="32" height="32" alt="">
     </a>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" href="#" data-toggle="modal" data-target="#modal_erklaerung"><i class="fas fa-fw fa-question mr-2"></i>Erklärung</span></a>
+                <a class="nav-link" href="#" data-toggle="modal" data-target="#modal_splash"><i class="fas fa-fw fa-question mr-2"></i>Erklärung</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/timosystems/nachbarschaft.care" target="_blank"><i class="fas fa-fw fa-code mr-2"></i>Open-Source Code</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="#" data-toggle="modal" data-target="#modal_datenschutz"><i class="fas fa-fw fa-eye mr-2"></i>Datenschutz</span></a>
@@ -16,11 +19,11 @@
         </ul>
     </div>
     {% if user.login == false %}
-    <button class="btn btn-secondary ml-auto mr-2" type="button" onclick="diagLogin();" data-toggle="tooltip" data-placement="bottom" title="Login"><i class="fas fa-fw fa-sign-in-alt mr-2"></i>Login</button>
+    <button class="btn btn-secondary ml-auto mr-2" type="button" onclick="showDiag('login');"><i class="fas fa-fw fa-sign-in-alt mr-2"></i>Login</button>
     {% else %}
-    <button class="btn btn-danger ml-auto mr-2" type="button" onclick="diagDeleteAccount();" data-toggle="tooltip" data-placement="bottom" title="Account löschen"><i class="fas fa-fw fa-user-slash"></i></button>
-    <button class="btn btn-secondary ml-0 mr-2" type="button" onclick="diagRemoveHelp();" data-toggle="tooltip" data-placement="bottom" title="Hilfsangebot löschen"><i class="fas fa-fw fa-trash-alt"></i></button>
-    <button class="btn btn-secondary ml-0 mr-2" type="button" onclick="diagLogout();" data-toggle="tooltip" data-placement="bottom" title="Abmelden"><i class="fas fa-fw fa-sign-out-alt"></i></button>
+    <button class="btn btn-primary ml-auto mr-2" type="button" onclick="showDiag('editaccount');"><i class="fas fa-fw fa-user"></i></button>
+    <button class="btn btn-secondary ml-0 mr-2" type="button" onclick="showDiag('removehelp');"><i class="fas fa-fw fa-trash-alt"></i></button>
+    <a href="/src/logout.php" class="btn btn-secondary ml-0 mr-2"><i class="fas fa-fw fa-sign-out-alt"></i></a>
     {% endif %}
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>

@@ -2,6 +2,6 @@
 
 require(dirname(__FILE__) . '/helper/session.php');
 session_destroy();
-header("Location: /");
+header("Location: /?nosplash=true");
 
 ?>

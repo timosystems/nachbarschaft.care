@@ -27,6 +27,13 @@ require(dirname(__FILE__) . '/src/helper/session.php');
 require(dirname(__FILE__) . '/src/helper/timeelapsed.php');
 require(dirname(__FILE__) . '/vendor/autoload.php');
 require(dirname(__FILE__) . '/src/config/config.php');
+$DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
+
+// prepare pw-reset if token has been sent 
+$_pw_reset_token = null;
+if(isset($_GET['token'])){
+    $_pw_reset_token = $_GET['token'];
+}
 
 // prepare captcha
 $_securimage = new Securimage();
@@ -35,11 +42,22 @@ $_securimage = new Securimage();
 $_account_login = (isset($_SESSION['email'])) ? true : false;
 $_account_email = (isset($_SESSION['email'])) ? $_SESSION['email'] : false;
 $_account_id = (isset($_SESSION['id'])) ? $_SESSION['id'] : false;
+$_account_vorname = null;
+$_account_nachname = null; 
+$_account_phone = null; 
+if($_account_login == true){
+    $_account_vorname = $DB->single("SELECT vorname FROM accounts WHERE id=?", array($_account_id));
+    $_account_nachname = $DB->single("SELECT nachname FROM accounts WHERE id=?", array($_account_id));
+    $_account_phone = $DB->single("SELECT phone FROM accounts WHERE id=?", array($_account_id));
+}
 
 // prepare the modal that has to shown 
 $_modal = null;
-if(!isset($_GET['success']) && !isset($_GET['problem']) && !isset($_POST['takehelp-mail']) && !isset($_POST['takehelp-phone']) && !isset($_GET['plz']) && !isset($_GET['nosplash'])){
+if(!isset($_GET['success']) && !isset($_GET['problem']) && !isset($_POST['takehelp-mail']) && !isset($_POST['takehelp-phone']) && !isset($_GET['plz']) && !isset($_GET['dopwreset']) && !isset($_GET['nosplash'])){
     $_modal = 'splash';
+}
+if(isset($_GET['dopwreset'])){
+    $_modal = 'dopwreset';
 }
 if(isset($_POST['takehelp-mail'])){
     $_modal = 'takehelp-mail';
@@ -49,7 +67,6 @@ if(isset($_POST['takehelp-phone'])){
 }
 
 // prepare the data for showing the number of help offers on the map 
-$DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
 $_plz_help_count = $DB->query("SELECT plz, COUNT(plz) as count FROM hilfsangebote GROUP BY plz;");
 $_plz_help_count_coordinates = array();
 for($i = 0; $i < count($_plz_help_count); $i++){
@@ -69,7 +86,6 @@ if(isset($_GET['plz'])){
     $_plz_center = null;
     if(preg_match('/^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/', $_plz)){
         try {
-            $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
             $_plz_polygon = $DB->query("SELECT * FROM plz_polygons WHERE plz=?", array($_plz));
             $_plz_polygon_coordinates = array();
             $_biggest = 0;
@@ -108,7 +124,7 @@ if(isset($_GET['plz'])){
 $_own_help = null;
 if(isset($_SESSION['email'])){ ?>
     <?php
-    $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
+    
     $_own_help = $DB->query("SELECT * FROM hilfsangebote WHERE ref_account=? ORDER BY timestamp DESC", array($_SESSION['id']));
     for($i = 0; $i < count($_own_help); $i++){
         $_own_help[$i]['timestamp'] = time_elapsed_string($_own_help[$i]['timestamp']); 
@@ -120,15 +136,6 @@ $_help_offer_data = null;
 $_takehelp_id = null;
 $_captcha = (isset($_POST['captcha_code'])) ? filter_var($_POST['captcha_code'], FILTER_SANITIZE_SPECIAL_CHARS) : null;
 $_show_phone = false;
-
-if($_captcha != null){
-    $_securimage = new Securimage();
-    if ($_securimage->check($_captcha) == false) {
-        header("Location: /?problem=getphone&reason=wrong_captcha");
-        exit;
-    }
-    $_show_phone = true;
-}
 if(isset($_POST['takehelp-mail']) || isset($_POST['takehelp-phone'])){
     if(isset($_POST['takehelp-mail'])){
         $_takehelp_id = filter_var($_POST['takehelp-mail'], FILTER_SANITIZE_NUMBER_INT);
@@ -136,7 +143,6 @@ if(isset($_POST['takehelp-mail']) || isset($_POST['takehelp-phone'])){
         $_takehelp_id = filter_var($_POST['takehelp-phone'], FILTER_SANITIZE_NUMBER_INT);
     }
     try {
-        $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
         $_help_offer_data = $DB->query("SELECT * FROM hilfsangebote WHERE id=?", array($_takehelp_id))[0];
         $_help_offer_data['timestamp'] = time_elapsed_string($_help_offer_data['timestamp']);
         $_help_offer_data['phone'] = $DB->single("SELECT phone FROM accounts WHERE id=?", array($_help_offer_data['ref_account']));
@@ -145,6 +151,27 @@ if(isset($_POST['takehelp-mail']) || isset($_POST['takehelp-phone'])){
         header("Location: /?problem=takehelp&reason=failed_db");
         exit;
     }
+}
+if($_captcha != null){
+    $_securimage = new Securimage();
+    if ($_securimage->check($_captcha) == false) {
+        header("Location: /?problem=getphone&reason=wrong_captcha");
+        exit;
+    }
+    try {
+        $_stats_for_plz = $DB->single("SELECT asked_phone FROM statistics WHERE plz=?", array($_help_offer_data['plz']));
+        if(is_null($_stats_for_plz)){
+            $DB->query("INSERT INTO statistics (plz, asked_phone) VALUES (?, ?)", array($_help_offer_data['plz'], 1));
+        } else {
+            $_stats_for_plz++;
+            $DB->query("UPDATE statistics SET asked_phone=? WHERE plz=?", array($_stats_for_plz,$_help_offer_data['plz']));
+        }
+    } catch (\Throwable $th) {
+        error_log('Konnte keinen Datenbankeintrag durchführen! Ursache: ' . $th->getMessage());
+        header("Location: /?problem=register&reason=failed_db");
+        exit;
+    }
+    $_show_phone = true;
 }
 
 // generate error and success reports from GET parameters
@@ -185,6 +212,7 @@ echo $Twig->render('main.twig', array(
             'web' => DSGVO_WEB
         )
     ),
+    'pw_reset_token' => $_pw_reset_token,
     'modal' => $_modal, 
     'error' => array(
         'problem' => $_error_problem,
@@ -203,6 +231,9 @@ echo $Twig->render('main.twig', array(
         'login' => $_account_login,
         'email' => $_account_email,
         'id' => $_account_id,
+        'vorname' => $_account_vorname,
+        'nachname' => $_account_nachname,
+        'phone' => $_account_phone,
     ),
     'data' => array(
         'map' => array(

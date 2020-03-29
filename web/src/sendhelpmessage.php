@@ -3,6 +3,7 @@
 require(dirname(__FILE__) . '/helper/session.php');
 require(dirname(__FILE__) . '/../vendor/autoload.php');
 require(dirname(__FILE__) . '/config/config.php');
+$DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
 
 if(!isset($_POST['help_id']) ||
    !isset($_POST['take_name']) ||
@@ -59,9 +60,25 @@ if(!preg_match('/^([0]{1}[1-9]{1}|[1-9]{1}[0-9]{1})[0-9]{3}$/', $_plz)){
 
 try {
 
-    $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
     $_hilfsangebot = $DB->query("SELECT * FROM hilfsangebote WHERE id=?", array($_helpID))[0];
     $_helfer = $DB->query("SELECT * FROM accounts WHERE id=?", array($_hilfsangebot['ref_account']))[0];
+
+} catch (\Throwable $th) {
+
+    error_log('Konnte keinen Datenbankeintrag durchführen! Ursache: ' . $th->getMessage());
+    header("Location: /?problem=register&reason=failed_db");
+    exit;
+}
+
+try {
+
+    $_stats_for_plz = $DB->single("SELECT asked_mail FROM statistics WHERE plz=?", array($_hilfsangebot['plz']));
+    if($_stats_for_plz == null){
+        $DB->query("INSERT INTO statistics (plz, asked_mail) VALUES (?, ?)", array($_hilfsangebot['plz'], 1));
+    } else {
+        $_stats_for_plz++;
+        $DB->query("UPDATE statistics SET asked_mail=? WHERE plz=?", array($_stats_for_plz,$_hilfsangebot['plz']));
+    }
 
 } catch (\Throwable $th) {
 

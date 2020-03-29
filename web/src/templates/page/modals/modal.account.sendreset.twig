@@ -1,8 +1,8 @@
-<div class="modal" tabindex="-1" role="dialog" id="modal_passwordreset">
+<div class="modal" tabindex="-1" role="dialog" id="modal_pwreset_request">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Passwort vergessen</h5>
+                <h5 class="modal-title"><i class="fas fa-key fa-fw mr-1"></i>Passwort vergessen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -10,14 +10,16 @@
             <div class="modal-body">
                 <p>Bitte gebe deine E-Mailadresse ein. Du erhältst anschließend einen Link, mit dem du dein Passwort zurücksetzen kannst.</p>
                 <form method="POST" action="/src/sendpwreset.php">
-                    <div class="input-group mb-2">
+                    <div class="input-group">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width: 120px;">E-Mail:</span>
                         </div>
                         <input required="required" id="pwre_email" name="pwre_email" class="form-control" type="email" aria-label="E-Mail">
                     </div>
-                    <button class="btn btn-block btn-success" type="Submit">Link für Passwort senden</button>
                 </form>
+            </div>
+            <div class="btn-group">
+                <button class="btn btn-block btn-success no-radius" type="Submit"><i class="fas fa-check fa-fw mr-1"></i>Neues Passwort anfordern</button>
             </div>
             <div class="modal-footer">
                 {{ include('modals/parts/modal.part.footer.twig') }}
@@ -25,8 +27,3 @@
         </div>
     </div>
 </div>
-{% if modal == 'resetpw' %}
-<script type="text/javascript">
-    $('#modal_passwordreset').modal();
-</script>
-{% endif %}

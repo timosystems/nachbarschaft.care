@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Hilfsangebote löschen</h5>
+                <h5 class="modal-title"><i class="fas fa-trash mr-1"></i>Hilfsangebote löschen</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -38,7 +38,7 @@
                             <span><b>{{ help.what|capitalize }}</b> in {{ help.plz }}</span>
                         </div>
                         <input type="hidden" name="help_id" value="{{ help.id }}" />
-                        <button class="btn btn-block btn-sm btn-danger" type="Submit">Diese Hilfe entfernen!</button>
+                        <button class="btn btn-block no-top-radius btn-sm btn-danger" type="Submit"><i class="fas fa-trash mr-1"></i>Löschen</button>
                     </div>
                 </form>
                 {% endfor %}

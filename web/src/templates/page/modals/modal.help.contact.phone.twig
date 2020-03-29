@@ -2,42 +2,44 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Helfer*in kontaktieren</h5>
+                <h5 class="modal-title"><i class="fas fa-phone mr-1"></i>Helfende Person kontaktieren</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="POST">
-                    <div class="card text-white bg-primary mb-4">
-                        <div class="card-body p-2">
-                            <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
-                            <div class="corona-icon-header mt-2">
-                                <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
-                                <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
-                            </div>
+                <div class="card text-white bg-primary mb-2">
+                    <div class="card-body p-2">
+                        <span><b>Achtung!</b> Bitte beachte die <a href="https://www.infektionsschutz.de/hygienetipps/" target="_blank">Hygiene-Tipps</a>. Verhindere neuen Infektionswege! Wasche dir regelmäßig deine Hände und lasse fremde Menschen nicht zu dir nach Hause hinein. Kinderbetreuung sollte (wenn überhaupt nötig) einzeln und isoliert stattfinden.</span>
+                        <div class="corona-icon-header mt-2">
+                            <span><i class="fas fa-hands-wash mr-2"></i>Hände waschen!</span>
+                            <span><i class="fas fa-people-arrows mr-2"></i>Abstand halten!</span>
                         </div>
                     </div>
-                    <input type="hidden" name="help_id" value="<?php echo $_hilfsangebotDaten['id']; ?>" />
-                    <h5>Du kontaktierst</h5>
-                    <div class="card mb-4">
-                        <div class="card-body p-1">
-                            <small class="badge badge-success">Vor {{ data.help.timestamp }} hinzugefügt</small>
-                            {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
-                            {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
-                            {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
-                            {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
-                            {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
-                            {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
-                            {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
-                            <br>
-                            <span><b>{{ data.help.what|capitalize }}</b> in {{ data.help.plz }}</span>
-                        </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h5>Du kontaktierst</h5>
+                <div class="card mb-2">
+                    <div class="card-body p-1">
+                        <div class="badge badge-primary">{{ data.help.plz }}</div>
+                        <div class="badge badge-success">{{ data.help.timestamp }} alt</div>
+                        {% if data.help.montag == true %}<span class="badge badge-secondary">Mo</span>{% endif %} 
+                        {% if data.help.dienstag == true %}<span class="badge badge-secondary">Di</span>{% endif %}
+                        {% if data.help.mittwoch == true %}<span class="badge badge-secondary ">Mi</span>{% endif %} 
+                        {% if data.help.donnerstag == true %}<span class="badge badge-secondary">Do</span>{% endif %} 
+                        {% if data.help.freitag == true %}<span class="badge badge-secondary">Fr</span>{% endif %} 
+                        {% if data.help.samstag == true %}<span class="badge badge-secondary">Sa</span>{% endif %} 
+                        {% if data.help.sonntag == true %}<span class="badge badge-secondary">So</span>{% endif %} 
+                        <br>
+                        <h5 class="mt-1 mb-0">{{ data.help.what|capitalize }}</h5>
+                        <small>{{ data.help.description }}</small>
                     </div>
-                    <h5>Telefon</h5>
-                    {% if data.show_phone == false %}
-                    <p class="mb-2"><small>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</small></p>
-                    {% endif %}
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="" method="POST" id="contact-help-phone">
+                    <h5>Telefonkontakt freischalten</h5>
                     <div class="card mb-2">
                         <div class="card-body text-center p-2">
                             {% if modal == 'takehelp-phone' %}
@@ -51,10 +53,15 @@
                         </div>
                     </div>
                     {% if data.show_phone == false %}
-                    <button class="btn btn-block btn-success" type="Submit">Telefonnummer anzeigen!</button>
+                    <div class="alert alert-secondary mb-0 p-2"><span><i class="fas fa-info-circle mr-1"></i>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</span></div>
                     {% endif %}
                 </form>
             </div>
+            {% if data.show_phone == false %}
+            <div class="btn-group">
+                <button form="contact-help-phone" class="btn btn-block btn-success no-radius" type="Submit"><i class="fas fa-check mr-1"></i>Telefonnummer anzeigen</button>
+            </div>
+            {% endif %}
             <div class="modal-footer">
                 {{ include('modals/parts/modal.part.footer.twig') }}
             </div>

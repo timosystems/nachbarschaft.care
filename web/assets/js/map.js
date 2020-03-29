@@ -49,7 +49,6 @@ function addPLZInfo(){
     polygon = L.polygon(selectedPlzPolygon)
     polygon.addTo(map);
     zoomPLZInfo();
-    diagHelpList();
 }
 
 function zoomPLZInfo(){
