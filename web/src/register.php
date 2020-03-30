@@ -22,6 +22,11 @@ $_nachname = filter_var($_POST['reg_nachname'], FILTER_SANITIZE_SPECIAL_CHARS);
 $_token = randomstring(64);
 $_linkOptin = SYS_URL . '/src/optin.php?token=' . $_token;
 
+if(substr($_phone, 0, 1) == '0'){
+    $_phone = substr($_phone, 1, strlen($_phone));
+}
+$_phone = (strlen($_phone) == 0) ? null : ('+49' . $_phone);
+
 if(!filter_var($_email, FILTER_VALIDATE_EMAIL)){
 
     header("Location: /?problem=register&reason=failed_email");

@@ -65,6 +65,10 @@ if(strlen($_phone) < 8 && strlen($_phone) > 3){
 
 }
 
+if(substr($_phone, 0, 1) == 0){
+    $_phone = substr($_phone, 1, strlen($_phone));
+}
+
 try {
 
     $_phone = (strlen($_phone) == 0) ? null : ('+49' . $_phone);
