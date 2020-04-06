@@ -72,8 +72,8 @@ $_plz_help_count_coordinates = array();
 for($i = 0; $i < count($_plz_help_count); $i++){
     $_plz_coordinate = $DB->query("SELECT center FROM plz_centers WHERE plz=?", array($_plz_help_count[$i]['plz']));
     if($_plz_coordinate != null){
-        // quickfix because some regions in eastern germany have fucking LEADING ZEROS which get removed when stored as integer
-        $_plz_help_count[$i]['plz'] = (strlen($_plz_help_count[$i]['plz']) == 4) ? '0' . $_plz_help_count[$i]['plz'] : $_plz_help_count[$i]['plz'];
+        // quickfix because some regions in eastern germany have fucking LEADING ZEROS which get removed when stored as integer 
+        $_plz_help_count[$i]['plz'] = (strlen($_plz_help_count[$i]['plz']) == 4) ? '0' . $_plz_help_count[$i]['plz'] : $_plz_help_count[$i]['plz']; 
         array_push($_plz_help_count_coordinates, array($_plz_help_count[$i]['plz'], $_plz_help_count[$i]['count'], explode(', ', $_plz_coordinate[0]['center'])));
     }
 }
@@ -146,8 +146,8 @@ if(isset($_POST['takehelp-mail']) || isset($_POST['takehelp-phone'])){
     }
     try {
         $_help_offer_data = $DB->query("SELECT * FROM hilfsangebote WHERE id=?", array($_takehelp_id))[0];
-        // quickfix because some regions in eastern germany have fucking LEADING ZEROS which get removed when stored as integer
-        $_help_offer_data['plz'] = (strlen($_help_offer_data['plz']) == 4) ? '0' . $_help_offer_data['plz'] : $_help_offer_data['plz'];
+        // quickfix because some regions in eastern germany have fucking LEADING ZEROS which get removed when stored as integer 
+        $_help_offer_data['plz'] = (strlen($_help_offer_data['plz']) == 4) ? '0' . $_help_offer_data['plz'] : $_help_offer_data['plz']; 
         $_help_offer_data['timestamp'] = time_elapsed_string($_help_offer_data['timestamp']);
         $_help_offer_data['phone'] = $DB->single("SELECT phone FROM accounts WHERE id=?", array($_help_offer_data['ref_account']));
     } catch (\Throwable $th) {
