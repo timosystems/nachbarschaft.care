@@ -1,14 +1,14 @@
-<div class="modal" tabindex="-1" role="dialog" id="modal_givehelp">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title"><i class="fas fa-user-plus mr-1"></i>Neu registrieren</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <form method="POST" id="register" action="/src/register.php">
+<form method="POST" id="register" action="/src/register.php">
+    <div class="modal" tabindex="-1" role="dialog" id="modal_givehelp">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"><i class="fas fa-user-plus mr-1"></i>Neu registrieren</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
                     <div class="input-group mb-2">
                         <div class="input-group-prepend">
                             <span class="input-group-text" style="width: 120px;">E-Mail:</span>
@@ -45,18 +45,24 @@
                         <input required="required" id="reg_nachname" name="reg_nachname" class="form-control" type="text" aria-label="Nachname">
                     </div>
 
-                    <div class="custom-control custom-checkbox mt-2">
+                    <div class="custom-control custom-checkbox my-2">
                         <input required="required" type="checkbox" class="custom-control-input" id="ref_dsgvo" name="ref_dsgvo">
                         <label class="custom-control-label" for="ref_dsgvo">Ich stimme der Verarbeitung meiner personenbezogenen Daten zu und habe die <a href="#" onClick="showDiag('datenschutz');">Datenschutzerklärung</a> gelesen und akzeptiert.</label>
                     </div>
-                </form>
-            </div>
-            <div class="btn-group">
-                <button class="btn btn-success no-radius" form="register" type="Submit"><i class="fas fa-check mr-2"></i>Registrieren</button>
-            </div>
-            <div class="modal-footer">
-                {{ include('modals/parts/modal.part.footer.twig') }}
+                    <div class="card mb-2">
+                        <div class="card-body text-center p-2">
+                            {{ captcha|raw }}
+                        </div>
+                    </div>
+                    <div class="alert alert-secondary mb-0 p-2"><span><i class="fas fa-info-circle mr-1"></i>Bitte gebe den Inhalt des Bildes in das Textfeld ein, damit wir wissen, dass du ein Mensch bist!</span></div>        
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-success no-radius" form="register" type="Submit"><i class="fas fa-check mr-2"></i>Registrieren</button>
+                </div>
+                <div class="modal-footer">
+                    {{ include('modals/parts/modal.part.footer.twig') }}
+                </div>
             </div>
         </div>
     </div>
-</div>
+</form>

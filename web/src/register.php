@@ -21,6 +21,13 @@ $_vorname = filter_var($_POST['reg_vorname'], FILTER_SANITIZE_SPECIAL_CHARS);
 $_nachname = filter_var($_POST['reg_nachname'], FILTER_SANITIZE_SPECIAL_CHARS);
 $_token = randomstring(64);
 $_linkOptin = SYS_URL . '/src/optin.php?token=' . $_token;
+$_captcha = (isset($_POST['captcha_code'])) ? filter_var($_POST['captcha_code'], FILTER_SANITIZE_SPECIAL_CHARS) : null;
+
+$_securimage = new Securimage();
+if ($_securimage->check($_captcha) == false) {
+    header("Location: /?problem=getphone&reason=wrong_captcha");
+    exit;
+}
 
 if(substr($_phone, 0, 1) == '0'){
     $_phone = substr($_phone, 1, strlen($_phone));

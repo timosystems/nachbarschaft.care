@@ -7,8 +7,8 @@ namespace Composer\Autoload;
 class ComposerStaticInit7b1b780aeda50ee09526fb254f74c462
 {
     public static $files = array (
-        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
         'bdf151f62a69e3ca51f07e0bd032de74' => __DIR__ . '/..' . '/lincanbin/php-pdo-mysql-class/src/PDO.class.php',
     );
 
@@ -53,6 +53,7 @@ class ComposerStaticInit7b1b780aeda50ee09526fb254f74c462
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Securimage' => __DIR__ . '/..' . '/dapphp/securimage/securimage.php',
         'Securimage_Color' => __DIR__ . '/..' . '/dapphp/securimage/securimage.php',
     );

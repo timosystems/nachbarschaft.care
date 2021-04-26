@@ -32,7 +32,14 @@ try {
     $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
     $_account = $DB->query("SELECT * FROM accounts WHERE email=?", array($_email))[0];
     $_token = randomstring(128);
+    $_captcha = (isset($_POST['captcha_code'])) ? filter_var($_POST['captcha_code'], FILTER_SANITIZE_SPECIAL_CHARS) : null;
     $_link = SYS_URL . '/?dopwreset=true&token=' . $_token;
+
+    $_securimage = new Securimage();
+    if ($_securimage->check($_captcha) == false) {
+        header("Location: /?problem=getphone&reason=wrong_captcha");
+        exit;
+    }
 
     if($_account == null){
 
