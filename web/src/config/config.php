@@ -24,24 +24,16 @@
 
     define('DB_HOST', '127.0.0.1');
     define('DB_PORT', 3306);
-    define('DB_NAME', 'c2w19db1');
-    define('DB_USER', 'c2w19db1');
-    define('DB_PASS', 's01OWJz@fxFm');
+    define('DB_NAME', '');
+    define('DB_USER', '');
+    define('DB_PASS', '');
 
-    define('SMTP_HOST', 'kulturschockzelle1.timmeserver.de');
-    define('SMTP_PORT', '465');
-    define('SMTP_USER', 'system@nachbarschaft.care');
-    define('SMTP_PASS', 'r9t!X8Vz');
+    define('SMTP_HOST', '');
+    define('SMTP_PORT', '');
+    define('SMTP_USER', '');
+    define('SMTP_PASS', '');
     define('SMTP_ENCRYPTION', PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS);
-    define('SMTP_SENDERMAIL', 'system@nachbarschaft.care');
-    define('SMTP_SENDERFROM', 'Nachbarschaft.Care | System');
-
-    // define('SMTP_HOST', 'mx.nocops.zone');
-    // define('SMTP_PORT', '465');
-    // define('SMTP_USER', 'nachbar@rosa-reutlingen.de');
-    // define('SMTP_PASS', 'uggypost59');
-    // define('SMTP_ENCRYPTION', PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS);
-    // define('SMTP_SENDERMAIL', 'nachbar@rosa-reutlingen.de');
-    // define('SMTP_SENDERFROM', 'Nachbarschaft.Care');
+    define('SMTP_SENDERMAIL', '');
+    define('SMTP_SENDERFROM', '');
 
 ?>
