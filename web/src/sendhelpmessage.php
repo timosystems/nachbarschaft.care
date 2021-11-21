@@ -1,8 +1,8 @@
 <?php
 
-require(dirname(__FILE__) . '/helper/session.php');
 require(dirname(__FILE__) . '/../vendor/autoload.php');
 require(dirname(__FILE__) . '/config/config.php');
+require(dirname(__FILE__) . '/helper/session.php');
 $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
 
 if(!isset($_POST['help_id']) ||
