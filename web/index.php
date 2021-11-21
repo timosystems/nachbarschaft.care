@@ -23,10 +23,10 @@
  */
 
 // include all the stuff we need for the beep beep server action
-require(dirname(__FILE__) . '/src/helper/session.php');
 require(dirname(__FILE__) . '/src/helper/timeelapsed.php');
 require(dirname(__FILE__) . '/vendor/autoload.php');
 require(dirname(__FILE__) . '/src/config/config.php');
+require(dirname(__FILE__) . '/src/helper/session.php');
 $DB = new Db(DB_HOST, DB_PORT, DB_NAME, DB_USER, DB_PASS);
 
 // prepare pw-reset if token has been sent 

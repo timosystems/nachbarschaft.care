@@ -75,8 +75,7 @@ try {
     $_mailContent = str_replace('REPLACE_LINK_OPTIN', $_linkOptin, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_URL', SYS_URL, $_mailContent);
     $_mailContent = str_replace('REPLACE_SYS_NAME', SYS_NAME, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMINMAIL', SYS_ADMINMAIL, $_mailContent);
-    $_mailContent = str_replace('REPLACE_SYS_ADMIN', SYS_ADMIN, $_mailContent);
+    $_mailContent = str_replace('REPLACE_SYS_ADMIN_MAIL', SYS_ADMIN_MAIL, $_mailContent);
     $_mailContent = utf8_decode($_mailContent);
 
     $Mail = new PHPMailer\PHPMailer\PHPMailer(false);
